@@ -7,7 +7,7 @@ After=network-online.target
 Type=notify
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
-ExecStart=/usr/local/bin/k3s server --node-external-ip=${node_external_ip} --node-ip=${node_internal_ip} --node-name=${node_name} --cluster-cidr=${cidr_pods} --service-cidr=${cidr_services} --token=${token} ${extra_server_args}
+ExecStart=/usr/local/bin/k3s server --node-external-ip=${node_external_ip} --node-ip=${node_internal_ip} --node-name=${node_name} --cluster-cidr=${cidr_pods} --service-cidr=${cidr_services} --token=${token} --no-deploy traefik ${extra_server_args}
 KillMode=process
 Delegate=yes
 # Having non-zero Limit*s causes performance problems due to accounting overhead
