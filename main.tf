@@ -2,7 +2,7 @@ module "prereq" {
   source          = "./modules/prereq"
   k3s_version     = var.k3s_version
   servers         = merge(var.master_nodes, var.worker_nodes)
-  install_iscsid  = var.install_openebs
+  install_iscsid  = true
 }
 
 module "master" {

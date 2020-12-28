@@ -19,12 +19,12 @@ resource "null_resource" "k3s-prerequisite" {
 
   // install iSCSI
   provisioner "remote-exec" {
-    inline = ["if [ ${var.install_iscsid} = true ]; then yum install iscsi-initiator-utils -y; fi"]
+    inline = ["yum install iscsi-initiator-utils -y"]
   }
 
   // enable iSCSI service
   provisioner "remote-exec" {
-    inline = ["if [ ${var.install_iscsid} = true ]; then sudo systemctl enable --now iscsid; fi"]
+    inline = ["systemctl enable --now iscsid"]
   }
 
   // Upload k3s file

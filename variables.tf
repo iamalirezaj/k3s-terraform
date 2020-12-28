@@ -4,16 +4,6 @@ variable "k3s_version" {
   default = "latest"
 }
 
-variable "install_openebs" {
-  type = bool
-  description = "Install openebs on k3s cluster"
-}
-
-variable "install_minio" {
-  type = bool
-  description = "Install minio s3 object storage on k3s cluster"
-}
-
 variable "cidr" {
   type = object({
     pods = string
