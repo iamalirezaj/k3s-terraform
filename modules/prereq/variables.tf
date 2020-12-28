@@ -4,6 +4,14 @@ variable "k3s_version" {
   default = "latest"
 }
 
+
+variable "install_iscsid" {
+  type = bool
+  description = "Install iscsid service"
+  default = false
+}
+
+
 variable "servers" {
   
   type = map(any)

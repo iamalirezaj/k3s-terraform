@@ -142,9 +142,7 @@ resource "null_resource" "masters_install" {
 
   // Wait for node-token
   provisioner "remote-exec" {
-    inline = [
-      "until cat /var/lib/rancher/k3s/server/node-token; do sleep 1; done"
-    ]
+    inline = ["until cat /var/lib/rancher/k3s/server/node-token; do sleep 1; done"]
   }
 
   // Create directory .kube

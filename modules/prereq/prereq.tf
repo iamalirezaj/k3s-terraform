@@ -17,34 +17,15 @@ resource "null_resource" "k3s-prerequisite" {
     inline = ["setenforce 0"]
   }
 
-  // Enable IPv4 forwarding
+  // install iSCSI
   provisioner "remote-exec" {
-    inline = ["echo 1 > /proc/sys/net/ipv4/ip_forward"]
+    inline = ["if [ ${var.install_iscsid} = true ]; then yum install iscsi-initiator-utils -y; fi"]
   }
 
-  // Enable IPv6 forwarding
-  #provisioner "remote-exec" {
-    #inline = [""]
-  #}
-
-  #// Add br_netfilter to /etc/modules-load.d/ when its centOS
-  #provisioner "remote-exec" {
-    #inline = ["echo 'br_netfilter' > /etc/modules-load.d/br_netfilter.conf"]
-  #}
-
-  #// Load br_netfilter
-  #provisioner "remote-exec" {
-    #inline = ["modprobe br_netfilter"]
-  #}
-
-  #// Set bridge-nf-call-iptables (just to be sure)
-  #provisioner "remote-exec" {
-    #loop = [
-      #"net.bridge.bridge-nf-call-iptables"
-      #"net.bridge.bridge-nf-call-ip6tables"
-    #]
-    #inline = "/sbin/sysctl ${each.loop} -p"
-  #}
+  // enable iSCSI service
+  provisioner "remote-exec" {
+    inline = ["if [ ${var.install_iscsid} = true ]; then sudo systemctl enable --now iscsid; fi"]
+  }
 
   // Upload k3s file
   provisioner "remote-exec" {
